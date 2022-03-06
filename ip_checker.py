@@ -1,6 +1,9 @@
 import requests
 import pyfiglet
+import sys
 from rich import print
+
+sys.tracebacklimit = 0
 
 def info(ip):
     try:
@@ -22,14 +25,18 @@ def info(ip):
         for k, e in data.items():
             print(f"[bold cyan]{k}: [bold yellow]{e}")
 
-    except:
-        print("ann error occurred")
+    except Exception as e:
+        print(f"[bold red]An '{e}' error occurred")
 
 def main():
     print(pyfiglet.figlet_format("IP CHECKER"))
     print("[cyan]Enter an IP that will be checked")
-    ip = input("IP: ")
-    info(ip)
+    try:
+        ip = int(input("IP: "))
+        info(ip)
+
+    except Exception as e:
+        print(f"[bold red][ERROR] {e}")
 
 if __name__ == "__main__":
     main()
