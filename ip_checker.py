@@ -1,4 +1,5 @@
 import requests
+import pyfiglet
 from rich import print
 
 def info(ip):
@@ -25,6 +26,8 @@ def info(ip):
         print("ann error occurred")
 
 def main():
+    print(pyfiglet.figlet_format("IP CHECKER"))
+    print("[cyan]Enter an IP that will be checked")
     ip = input("IP: ")
     info(ip)
 
