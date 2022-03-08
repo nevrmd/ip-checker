@@ -1,5 +1,5 @@
 import requests
-import pyfiglet
+from pyfiglet import Figlet
 import sys
 from rich import print
 
@@ -24,19 +24,32 @@ def info(ip):
 
         for k, e in data.items():
             print(f"[bold cyan]{k}: [bold yellow]{e}")
+        print("")
 
     except Exception as e:
         print(f"[bold red]An '{e}' error occurred")
 
 def main():
-    print(pyfiglet.figlet_format("IP CHECKER"))
-    print("[cyan]Enter an IP that will be checked")
-    try:
-        ip = int(input("IP: "))
-        info(ip)
+    print(Figlet().renderText("IP checker"))
+    while True:
+        print("[bold cyan]1 - Your [yellow]IP adress[/yellow];\n2 - Info about [yellow]any IP adress[/yellow]\n")
+        try:
+            choice = int(input(">>> "))
+        except:
+            print("[bold red]Type 1 or 2!")
+        else:
+            if choice == 1:
+                url = "https://icanhazip.com/"
+                response = requests.get(url).text
+                print(f"[bold green]Your IP is [bold yellow]{response}")
+            elif choice == 2:
+                print("[cyan]Enter an IP that will be checked")
+                try:
+                    ip = input("IP: ")
+                    info(ip)
 
-    except Exception as e:
-        print(f"[bold red][ERROR] {e}")
+                except Exception as e:
+                    print(f"[bold red][ERROR] {e}")
 
 if __name__ == "__main__":
     main()
